@@ -116,7 +116,7 @@ export default function App() {
             TEXT-TO-SQL DASHBOARD
           </h1>
           <p className="font-mono text-[14px] text-[var(--text-dim)] mt-1">
-            Powered by Google Gemini 2.0 Flash · Schema-Aware NL→SQL
+            Powered by Google Gemini 3.5 Flash · Schema-Aware NL→SQL
           </p>
         </div>
         <div className="ml-auto flex items-center gap-4">
@@ -263,7 +263,7 @@ export default function App() {
         isConnected={isConnected}
         lastElapsedMs={lastMs}
         queryCount={queryCount}
-        model="GEMINI-2.0-FLASH"
+        model="GEMINI-3.5-FLASH"
       />
 
       {/* Bottom pixel stripe */}

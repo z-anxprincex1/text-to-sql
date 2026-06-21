@@ -45,7 +45,7 @@ def execute_sql(sql: str) -> Dict[str, Any]:
 # ── Routes ───────────────────────────────────────────────────────────────────
 @app.route("/api/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok", "model": "gemini-2.0-flash"})
+    return jsonify({"status": "ok", "model": "gemini-3.5-flash"})
 
 
 @app.route("/api/schema", methods=["GET"])

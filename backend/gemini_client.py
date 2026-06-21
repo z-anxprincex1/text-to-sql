@@ -6,6 +6,8 @@ Uses the generativelanguage REST API with structured JSON output.
 import os
 import json
 import re
+import random
+import time
 import requests
 from typing import Dict, Any
 from dotenv import load_dotenv
@@ -20,7 +22,7 @@ if not GEMINI_API_KEY:
 
 GEMINI_ENDPOINT = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-2.0-flash:generateContent"
+    "gemini-3.5-flash:generateContent"
 )
 
 
@@ -89,8 +91,11 @@ def generate_sql(natural_language: str, ddl: str) -> GeminiSQLResponse:
         "generationConfig": {
             "temperature": 0.1,
             "topP": 0.95,
-            "maxOutputTokens": 512,
+            "maxOutputTokens": 2048,
             "responseMimeType": "application/json",
+            "thinkingConfig": {
+                "thinkingBudget": 0
+            },
         },
     }
 
@@ -99,8 +104,39 @@ def generate_sql(natural_language: str, ddl: str) -> GeminiSQLResponse:
         "x-goog-api-key": GEMINI_API_KEY,
     }
 
-    response = requests.post(GEMINI_ENDPOINT, json=payload, headers=headers, timeout=30)
-    response.raise_for_status()
+    max_retries = 5
+    backoff_factor = 1.5  # 1.5s, 2.25s, 3.375s, 5.06s, 7.59s
+    response = None
+
+    for attempt in range(max_retries):
+        try:
+            response = requests.post(GEMINI_ENDPOINT, json=payload, headers=headers, timeout=30)
+            
+            # Check for rate limit or server-side issues
+            if response.status_code == 429:
+                if attempt == max_retries - 1:
+                    response.raise_for_status()
+                sleep_time = (backoff_factor ** attempt) + random.uniform(0.1, 0.5)
+                print(f"[Gemini Client] HTTP 429 Too Many Requests. Retrying in {sleep_time:.2f}s... (Attempt {attempt + 1}/{max_retries})")
+                time.sleep(sleep_time)
+                continue
+                
+            if response.status_code >= 500:
+                if attempt == max_retries - 1:
+                    response.raise_for_status()
+                sleep_time = (backoff_factor ** attempt) + random.uniform(0.1, 0.5)
+                print(f"[Gemini Client] HTTP {response.status_code} Server Error. Retrying in {sleep_time:.2f}s... (Attempt {attempt + 1}/{max_retries})")
+                time.sleep(sleep_time)
+                continue
+                
+            response.raise_for_status()
+            break
+        except requests.exceptions.RequestException as e:
+            if attempt == max_retries - 1:
+                raise e
+            sleep_time = (backoff_factor ** attempt) + random.uniform(0.1, 0.5)
+            print(f"[Gemini Client] Request exception: {e}. Retrying in {sleep_time:.2f}s... (Attempt {attempt + 1}/{max_retries})")
+            time.sleep(sleep_time)
 
     data = response.json()
 

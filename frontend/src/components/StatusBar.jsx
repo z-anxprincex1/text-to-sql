@@ -7,7 +7,7 @@ export default function StatusBar({ isConnected, lastElapsedMs, queryCount, mode
           className="w-2 h-2 inline-block"
           style={{ background: isConnected ? '#00ff41' : '#ff0000' }}
         />
-        <span>{model ?? 'GEMINI-2.0-FLASH'}</span>
+        <span>{model ?? 'GEMINI-3.5-FLASH'}</span>
       </div>
 
       <div className="sep" />
