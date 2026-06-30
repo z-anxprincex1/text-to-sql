@@ -1,5 +1,5 @@
 """
-Flask application — Text-to-SQL inference pipeline with Gemini Flash.
+Flask application for the LLM Text-to-SQL Query Engine.
 """
 
 import time

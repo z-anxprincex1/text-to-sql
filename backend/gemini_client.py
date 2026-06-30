@@ -1,5 +1,5 @@
 """
-Gemini Flash client — schema-aware text-to-SQL inference.
+Gemini Flash client for schema-aware LLM Text-to-SQL generation.
 Uses the generativelanguage REST API with structured JSON output.
 """
 

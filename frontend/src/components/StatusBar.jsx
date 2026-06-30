@@ -30,7 +30,7 @@ export default function StatusBar({ isConnected, lastElapsedMs, queryCount, mode
 
       {/* Right side spacer & branding */}
       <span className="ml-auto text-[var(--border-dim)] text-[6px]">
-        TEXT-TO-SQL DASHBOARD 2024
+        LLM TEXT-TO-SQL QUERY ENGINE 2024
       </span>
     </div>
   );

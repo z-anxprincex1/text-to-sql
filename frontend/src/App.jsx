@@ -113,7 +113,7 @@ export default function App() {
         </div>
         <div>
           <h1 className="font-pixel text-[18px] text-white leading-tight">
-            TEXT-TO-SQL DASHBOARD
+            LLM TEXT-TO-SQL QUERY ENGINE
           </h1>
           <p className="font-mono text-[14px] text-[var(--text-dim)] mt-1">
             Powered by Google Gemini 3.5 Flash · Schema-Aware NL→SQL

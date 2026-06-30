@@ -1,14 +1,14 @@
-# ⬛ TEXT-TO-SQL DASHBOARD
+# LLM Text-to-SQL Query Engine
 
-> **LLM-powered natural language database search interface powered by Google Gemini 3.5 Flash**
+> **Schema-aware LLM Text-to-SQL query engine powered by Google Gemini 3.5 Flash**
 
-A full-stack project featuring schema-aware prompt engineering, typed structured output contracts, and a high-contrast Metro UI with Minecraft retro aesthetics.
+A full-stack project featuring schema-aware prompt engineering, typed structured output contracts, SQL safety validation, and a high-contrast Metro UI with Minecraft retro aesthetics.
 
 ---
 
 ## 📷 Interface Preview
 
-![Text-to-SQL Dashboard UI](frontend/screenshots/1.png)
+![LLM Text-to-SQL Query Engine UI](frontend/screenshots/1.png)
 
 ### What's shown in the preview:
 1. **Header Panel**: Displays system connection status (`CONNECTED`), the active model (`Google Gemini 3.5 Flash`), and query count metrics.
